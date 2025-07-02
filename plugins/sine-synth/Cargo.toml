@@ -1,0 +1,22 @@
+[package]
+name = "sine-synth"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+nih_plug = { workspace = true }
+# nih_plug_vst3 = { workspace = true }
+# nih_plug_clap = { workspace = true }
+dsp-core = { path = "../../shared/dsp-core" }
+
+# # Plugin-specific dependencies
+# [dependencies.nih_plug_egui]
+# workspace = true
+# optional = true
+
+# [features]
+# default = []
+# editor = ["nih_plug_egui"]

@@ -1,0 +1,34 @@
+[workspace]
+resolver = "2"
+members = [
+    "plugins/sine-synth",
+    # "plugins/drum-machine", 
+    # "plugins/fm-synth",
+    # "shared/audio-utils",
+    # "shared/ui-common",
+    "shared/dsp-core",
+    "xtask"]
+
+# Shared dependencies across all plugins
+[workspace.dependencies]
+nih_plug = { git = "https://github.com/robbert-vdh/nih-plug.git" }
+# nih_plug_vst3 = { git = "https://github.com/robbert-vdh/nih-plug.git" }
+# nih_plug_clap = { git = "https://github.com/robbert-vdh/nih-plug.git" }
+serde = { version = "1.0", features = ["derive"] }
+atomic_float = "1.0"
+
+# # DSP libraries
+# fundsp = "0.18"
+# realfft = "3.0"
+
+# Shared optimization settings
+[profile.release]
+lto = "thin"
+strip = "symbols"
+codegen-units = 1
+panic = "abort"
+
+[profile.release-with-debug]
+inherits = "release"
+debug = true
+strip = "none"

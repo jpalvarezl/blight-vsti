@@ -1,0 +1,9 @@
+[package]
+name = "dsp-core"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+nih_plug = { workspace = true }
+
+# Common DSP utilities that all your plugins might need
