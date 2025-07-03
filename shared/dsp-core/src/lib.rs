@@ -1,4 +1,4 @@
-use std::f32::consts::PI;
+use std::f32::consts::TAU;
 
 /// Common oscillator implementations
 pub mod oscillators {
@@ -25,7 +25,7 @@ pub mod oscillators {
         }
 
         pub fn next_sample(&mut self) -> f32 {
-            let sample = (self.phase * 2.0 * PI).sin();
+            let sample = (self.phase * TAU).sin();
             self.phase += self.frequency / self.sample_rate;
             if self.phase >= 1.0 {
                 self.phase -= 1.0;
@@ -115,6 +115,22 @@ pub mod envelopes {
 
         pub fn is_active(&self) -> bool {
             self.stage != EnvStage::Idle
+        }
+
+        pub fn set_attack(&mut self, attack: f32) {
+            self.attack = attack;
+        }
+
+        pub fn set_decay(&mut self, decay: f32) {
+            self.decay = decay;
+        }
+
+        pub fn set_sustain(&mut self, sustain: f32) {
+            self.sustain = sustain;
+        }
+
+        pub fn set_release(&mut self, release: f32) {
+            self.release = release;
         }
     }
 }

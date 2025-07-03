@@ -38,7 +38,7 @@ clippy:
 #     echo "1. Add '{{name}}' to workspace members in Cargo.toml"
 #     echo "2. Update the plugin struct name and constants in plugins/{{name}}/src/lib.rs"
 
-bundle name:
+install-bundle name:
     cargo xtask bundle {{name}} --release
 
 install-all:

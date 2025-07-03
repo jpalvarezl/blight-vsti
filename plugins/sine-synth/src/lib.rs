@@ -59,8 +59,8 @@ impl Default for SynthParams {
                 util::db_to_gain(-12.0),
                 FloatRange::Skewed {
                     min: util::db_to_gain(-30.0),
-                    max: util::db_to_gain(30.0),
-                    factor: FloatRange::gain_skew_factor(-30.0, 30.0),
+                    max: util::db_to_gain(0.0),
+                    factor: FloatRange::gain_skew_factor(-30.0, 0.0),
                 },
             )
             .with_smoother(SmoothingStyle::Logarithmic(50.0))
@@ -179,6 +179,10 @@ impl Plugin for SineSynth {
                         voice.velocity = velocity;
                         voice.osc.set_frequency(midi_to_freq(note));
                         voice.osc.reset();
+                        voice.env.set_attack(self.params.attack.smoothed.next());
+                        voice.env.set_decay(self.params.decay.smoothed.next());
+                        voice.env.set_sustain(self.params.sustain.smoothed.next());
+                        voice.env.set_release(self.params.release.smoothed.next());
                         voice.env.note_on();
                     }
                     NoteEvent::NoteOff { note, .. } => {
@@ -213,9 +217,9 @@ impl Plugin for SineSynth {
             // Apply to all channels
             for (channel_idx, sample) in channel_samples.into_iter().enumerate() {
                 *sample = if channel_idx % 2 == 0 {
-                    sample_l
+                    sample_l / self.voices.len() as f32
                 } else {
-                    sample_r
+                    sample_r / self.voices.len() as f32
                 };
             }
         }

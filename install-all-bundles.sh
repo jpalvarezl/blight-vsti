@@ -41,7 +41,7 @@ for plugin_dir in plugins/*/; do
     plugin_name=$(basename "$plugin_dir")
     plugin_path="$vsti_dir/$plugin_name.vst3"
 
-    just bundle "$plugin_name"
+    just install-bundle "$plugin_name"
     echo "Processing plugin: $plugin_name located at $plugin_path"
     if [ -d "$plugin_path" ]; then
         echo "Installing $plugin_name to $VST3_DIR..."
